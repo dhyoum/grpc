@@ -4,16 +4,22 @@ LOAD_MODULES := module add $(MODULES) &&
 GCC_GCOV := /app/vbuild/RHEL9-x86_64/gcc/14.2.0/bin/gcov
 COVERAGE_DIR := coverage
 
-.PHONY: build run test tidy coverage clean
+.PHONY: build run test tidy coverage clean server client
 
 build:
-	$(LOAD_MODULES) bazel build //main:app //util/sum //util/factorial
+	$(LOAD_MODULES) bazel build //main:app //util/sum //util/factorial //server:server //client:client
 
 run:
 	$(LOAD_MODULES) bazel run //main:app
 
+server:
+	$(LOAD_MODULES) bazel run //server:server
+
+client:
+	$(LOAD_MODULES) bazel run //client:client
+
 test:
-	$(LOAD_MODULES) bazel test //util/sum:sum_test //util/factorial:factorial_test --test_output=all
+	$(LOAD_MODULES) bazel test //... --test_output=all
 
 tidy:
 	$(LOAD_MODULES) bazel build --config=tidy //main:app //util/sum //util/factorial

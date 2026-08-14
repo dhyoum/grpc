@@ -1,6 +1,8 @@
 module(
-    name = "grpc",
+    name = "grpc_demo",
     version = "0.1.0",
 )
 
 bazel_dep(name = "googletest", version = "1.15.2")
+bazel_dep(name = "grpc", version = "1.76.0.bcr.1", repo_name = "com_github_grpc_grpc")
+bazel_dep(name = "protobuf", version = "29.3")
