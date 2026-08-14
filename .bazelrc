@@ -1,0 +1,9 @@
+build --action_env=CC=/app/vbuild/RHEL9-x86_64/gcc/14.2.0/bin/gcc
+build --action_env=CXX=/app/vbuild/RHEL9-x86_64/gcc/14.2.0/bin/g++
+build --repo_env=BAZEL_CXXOPTS=-std=c++23
+build --linkopt=-L/app/vbuild/RHEL9-x86_64/gcc/14.2.0/lib64
+build --linkopt=-Wl,-rpath,/app/vbuild/RHEL9-x86_64/gcc/14.2.0/lib64
+
+# clang-tidy static analysis
+build:tidy --aspects=//tools:clang_tidy.bzl%clang_tidy_aspect
+build:tidy --output_groups=clang_tidy
