@@ -39,5 +39,5 @@ coverage:
 	&& echo "Open: $(COVERAGE_DIR)/index.html"
 
 clean:
-	$(LOAD_MODULES) bazel clean
+	$(LOAD_MODULES) bazel clean --async
 	rm -rf $(COVERAGE_DIR)
