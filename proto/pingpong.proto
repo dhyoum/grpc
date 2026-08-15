@@ -3,7 +3,11 @@ syntax = "proto3";
 package pingpong;
 
 service PingPong {
+  // Unary: 단순 요청-응답
   rpc Ping (PingRequest) returns (PongResponse) {}
+
+  // Server streaming: 클라이언트가 구독하면 서버가 상태 알림을 push
+  rpc Subscribe (SubscribeRequest) returns (stream StatusIndication) {}
 }
 
 message PingRequest {
@@ -12,4 +16,20 @@ message PingRequest {
 
 message PongResponse {
   string message = 1;
+}
+
+message SubscribeRequest {
+  string client_id = 1;
+}
+
+message StatusIndication {
+  enum Level {
+    INFO = 0;
+    WARNING = 1;
+    ERROR = 2;
+  }
+  Level level = 1;
+  string source = 2;
+  string message = 3;
+  int64 timestamp_ms = 4;
 }

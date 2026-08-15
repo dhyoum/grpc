@@ -1,6 +1,8 @@
-cc_binary(
-    name = "server",
-    srcs = ["server.cc"],
+cc_library(
+    name = "pingpong_service",
+    srcs = ["pingpong_service.cc"],
+    hdrs = ["pingpong_service.h"],
+    visibility = ["//visibility:public"],
     deps = [
         "//proto:pingpong_cc_grpc",
         "//proto:pingpong_cc_proto",
@@ -8,13 +10,11 @@ cc_binary(
     ],
 )
 
-cc_test(
-    name = "pingpong_test",
-    srcs = ["pingpong_test.cc"],
+cc_binary(
+    name = "server",
+    srcs = ["server.cc"],
     deps = [
-        "//proto:pingpong_cc_grpc",
-        "//proto:pingpong_cc_proto",
+        ":pingpong_service",
         "@com_github_grpc_grpc//:grpc++",
-        "@googletest//:gtest_main",
     ],
 )
